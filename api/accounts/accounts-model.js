@@ -1,22 +1,30 @@
+const res = require("express/lib/response");
+const db = require("../../data/db-config");
+
 const getAll = () => {
   // DO YOUR MAGIC
-}
+  return db("accounts");
+};
 
-const getById = id => {
+const getById = (id) => {
   // DO YOUR MAGIC
-}
+    return db("accounts").where('id', id).first();
+};
 
-const create = account => {
+const create = (account) => {
   // DO YOUR MAGIC
-}
+  return db('accounts').insert(account);
+};
 
 const updateById = (id, account) => {
   // DO YOUR MAGIC
-}
+  return db('accounts').where({ id }).update(account);
+};
 
-const deleteById = id => {
+const deleteById = (id) => {
   // DO YOUR MAGIC
-}
+  return db('accounts').where('id', id).delete();
+};
 
 module.exports = {
   getAll,
@@ -24,4 +32,4 @@ module.exports = {
   create,
   updateById,
   deleteById,
-}
+};
