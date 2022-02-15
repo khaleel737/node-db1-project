@@ -5,7 +5,7 @@ const server = express();
 
 server.use(express.json());
 
-server.use('/api', accountsRouter)
+server.use('/api/accounts', accountsRouter)
 
 server.get('/', (req, res) => {
     res.status(200).send({ message: 'Server Up' })
