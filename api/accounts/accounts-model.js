@@ -1,30 +1,29 @@
-const res = require("express/lib/response");
-const db = require("../../data/db-config");
+const db = require('../../data/db-config')
 
 const getAll = () => {
-  // DO YOUR MAGIC
-  return db("accounts");
-};
+  return db('accounts')
+}
 
-const getById = (id) => {
-  // DO YOUR MAGIC
-    return db("accounts").where('id', id).first();
-};
+async function getById (id){
+  const result = await db('accounts').where('id', id).first()
+  return result
+}
 
-const create = (account) => {
-  // DO YOUR MAGIC
-  return db('accounts').insert(account);
-};
+async function create(account){
+  const [id] = await db('accounts').insert(account)
+  return getById(id)
+}
 
-const updateById = (id, account) => {
-  // DO YOUR MAGIC
-  return db('accounts').where({ id }).update(account);
-};
+async function updateById (id, account){
+  await db('accounts').where('id', id).update(account)
+  return getById(id)
+}
 
-const deleteById = (id) => {
-  // DO YOUR MAGIC
-  return db('accounts').where('id', id).delete();
-};
+async function deleteById (id){
+  const toDelete = await getById(id)
+  await db('accounts').where({id}).del()
+  return toDelete
+}
 
 module.exports = {
   getAll,
@@ -32,4 +31,4 @@ module.exports = {
   create,
   updateById,
   deleteById,
-};
+}
