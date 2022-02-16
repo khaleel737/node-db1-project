@@ -1,5 +1,4 @@
-const { is } = require('express/lib/request')
-const dbConfig = require('../../data/db-config')
+const db = require('../../data/db-config')
 const Accounts = require('./accounts-model')
 
 exports.checkAccountPayload = (req, res, next) => {
@@ -29,6 +28,7 @@ exports.checkAccountNameUnique = async (req, res, next) => {
   try{
     const existing = await db('accounts').where('name', req.body.name.trim())
     .first()
+
     if(existing){
       next(res.status(400).json({message: 'that name is taken'}))
     }else{
